@@ -1,0 +1,15 @@
+{
+    "Please enter phone number": "الرجاء إدخال رقم الهاتف",
+    "Find phone": "البحث عن الهاتف",
+    "Search": "بحث",
+    "No contacts found.": "لم يتم العثور على جهات اتصال.",
+    "Contact not found.": "لم يتم العثور على جهة الاتصال.",
+    "Contact details": "تفاصيل الاتصال",
+    "Name": "الاسم",
+    "Phone": "الهاتف",
+    "Email": "البريد الإلكتروني",
+    "Address": "العنوان",
+    "Edit Contact": "تعديل جهة الاتصال",
+    "Delete Contact": "حذف جهة الاتصال",
+    "Are you sure you want to delete this contact?": "هل أنت متأكد أنك تريد حذف هذه الجهة؟"
+}

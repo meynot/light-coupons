@@ -4,13 +4,13 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ContactController;
 
-Route::get('/', function () {
+Route::get('/XXXXX', function () {
     return Inertia::render('welcome');
 })->name('home');
 
 Route::post('contacts/find', [ContactController::class, 'find'])->name('contacts.find');
 Route::put('contacts/{contact}/qrcode/activate', [ContactController::class, 'qrcodeActivate'])->name('contacts.qrcode.activate');
-Route::get('contacts', [ContactController::class, 'index'])->name('contacts.index');
+Route::get('/', [ContactController::class, 'index'])->name('contacts.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
