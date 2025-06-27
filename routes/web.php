@@ -8,15 +8,28 @@ Route::get('/XXXXX', function () {
     return Inertia::render('welcome');
 })->name('home');
 
+Route::get('/', function() {
+    return view('index');
+})->name('landing');
+
+
 Route::post('contacts/find', [ContactController::class, 'find'])->name('contacts.find');
 Route::put('contacts/{contact}/qrcode/activate', [ContactController::class, 'qrcodeActivate'])->name('contacts.qrcode.activate');
-Route::get('/', [ContactController::class, 'index'])->name('contacts.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+/*
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
-    Route::resource('contacts', ContactController::class)->except('index');
+
+*/
+    Route::get('dashboard', function () {
+        return redirect()->route('contacts.index');
+    })->name('dashboard');
+
+    Route::resource('contacts', ContactController::class)
+        ->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])
+        ->names('contacts');
 
 });
 

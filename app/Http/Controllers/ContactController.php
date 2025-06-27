@@ -7,9 +7,45 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $contacts = Contact::all();
+        // Get filters and sort inputs
+        $query = Contact::query();
+
+        // Filtering
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        if ($request->filled('email')) {
+            $query->where('email', 'like', '%' . $request->email . '%');
+        }
+
+        if ($request->filled('phone')) {
+            $query->where('phone', 'like', '%' . $request->phone . '%');
+        }
+
+        if ($request->filled('coupon_code')) {
+            $query->where('coupon_code', 'like', '%' . $request->coupon_code . '%');
+        }
+
+        if ($request->filled('created_at')) {
+            $query->whereDate('created_at', $request->created_at);
+        }
+
+        // Sorting
+        $sortable = ['name', 'email', 'created_at'];
+        $sort = $request->get('sort');
+        $direction = $request->get('direction', 'asc');
+
+        if (in_array($sort, $sortable)) {
+            $query->orderBy($sort, $direction);
+        } else {
+            $query->orderBy('created_at', 'desc');
+        }
+
+        $contacts = $query->paginate(10)->appends($request->all());
+
         return view('contacts.index', compact('contacts'));
     }
 
@@ -87,6 +123,6 @@ class ContactController extends Controller
         $contact->used_at = now();
         $contact->save();
 
-        return redirect()->route('contacts.index')->with('success', 'QR Code activated successfully.');
+        return redirect()->route('landing')->with('success', 'QR Code activated successfully.');
     }
 }
